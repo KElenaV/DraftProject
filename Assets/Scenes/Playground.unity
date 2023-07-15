@@ -374,7 +374,8 @@ MonoBehaviour:
   _movementSpeed: 2.5
   _rotationSpeed: 3
   _characterController: {fileID: 707294025}
-  _animator: {fileID: 707294033}
+  _anyStateAnimator: {fileID: 707294033}
+  _animationSmothTime: 6
 --- !u!114 &707294033
 MonoBehaviour:
   m_ObjectHideFlags: 0

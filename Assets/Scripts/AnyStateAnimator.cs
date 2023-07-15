@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class AnyStateAnimator : MonoBehaviour
 {
+    private AnimatorIds _animatorIds;
     private Animator _animator;
     private int _currentAnimationID;
 
-    public int WalkID => Animator.StringToHash("Walk");
-    public int JumpID => Animator.StringToHash("Jump");
-    public int RunID => Animator.StringToHash("Run");
-    public int IdleID => Animator.StringToHash("Idle");
+    public Animator Animator { get => _animator; private set => _animator = value; }
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _currentAnimationID = IdleID;
+        _animatorIds = new AnimatorIds();
+        Animator = GetComponent<Animator>();
+        _currentAnimationID = _animatorIds.WalkID;
     }
 
-    public void PlayAnimation(int animation)
+    public void TryPlayAnimation(int animationID)
     {
-        _animator.SetBool(_currentAnimationID, false);
-        _animator.SetBool(animation, true);
-        _currentAnimationID = animation;
+        if(animationID != _currentAnimationID)
+        {
+            Animator.SetBool(_currentAnimationID, false);
+            Animator.SetBool(animationID, true);
+            _currentAnimationID = animationID;
+        }
     }
 }
