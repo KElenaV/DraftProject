@@ -371,11 +371,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d02000c53c8fd342829d4c23a8babe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 2.5
+  _walkSpeed: 2.5
+  _runSpeed: 5
   _rotationSpeed: 3
+  _animationSmothTime: 6
   _characterController: {fileID: 707294025}
   _anyStateAnimator: {fileID: 707294033}
-  _animationSmothTime: 6
 --- !u!114 &707294033
 MonoBehaviour:
   m_ObjectHideFlags: 0

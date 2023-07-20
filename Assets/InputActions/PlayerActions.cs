@@ -44,6 +44,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""b14f0401-f580-436a-95f9-de6c4a19ef3c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""MouseRotation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7257997a-81bc-4bcb-af56-f6221c28cd47"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
         m_Controls_Move = m_Controls.FindAction("Move", throwIfNotFound: true);
         m_Controls_MouseRotation = m_Controls.FindAction("MouseRotation", throwIfNotFound: true);
+        m_Controls_Run = m_Controls.FindAction("Run", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,12 +204,14 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private IControlsActions m_ControlsActionsCallbackInterface;
     private readonly InputAction m_Controls_Move;
     private readonly InputAction m_Controls_MouseRotation;
+    private readonly InputAction m_Controls_Run;
     public struct ControlsActions
     {
         private @PlayerActions m_Wrapper;
         public ControlsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Controls_Move;
         public InputAction @MouseRotation => m_Wrapper.m_Controls_MouseRotation;
+        public InputAction @Run => m_Wrapper.m_Controls_Run;
         public InputActionMap Get() { return m_Wrapper.m_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,6 +227,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @MouseRotation.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMouseRotation;
                 @MouseRotation.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMouseRotation;
                 @MouseRotation.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnMouseRotation;
+                @Run.started -= m_Wrapper.m_ControlsActionsCallbackInterface.OnRun;
+                @Run.performed -= m_Wrapper.m_ControlsActionsCallbackInterface.OnRun;
+                @Run.canceled -= m_Wrapper.m_ControlsActionsCallbackInterface.OnRun;
             }
             m_Wrapper.m_ControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -214,6 +240,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @MouseRotation.started += instance.OnMouseRotation;
                 @MouseRotation.performed += instance.OnMouseRotation;
                 @MouseRotation.canceled += instance.OnMouseRotation;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
             }
         }
     }
@@ -222,5 +251,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMouseRotation(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
     }
 }
