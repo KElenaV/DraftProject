@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _animationSmothTime;
+
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private AnyStateAnimator _anyStateAnimator;
     
@@ -58,7 +59,6 @@ public class Player : MonoBehaviour
         if (!Mouse.current.rightButton.isPressed)
         {
             float angle = _mouseDeltaX * _rotationSpeed * Time.deltaTime;
-
             transform.Rotate(Vector3.up * angle);
         }
     }
@@ -83,6 +83,8 @@ public class Player : MonoBehaviour
                 _anyStateAnimator.TryPlayAnimation(_animatorIds.WalkID);
         }
         else if (_characterController.velocity == Vector3.zero && _animationVector == Vector2.zero)
+        {
             _anyStateAnimator.TryPlayAnimation(_animatorIds.IdleID);
+        }
     }
 }
